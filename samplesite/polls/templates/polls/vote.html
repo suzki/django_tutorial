@@ -1,0 +1,15 @@
+<!-- temlates/polls/vote.html-->
+<h1>{{question.question_text}}</h1>
+
+{% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
+
+<form action="{% url 'polls:votes" question_id %} method="POST">
+    {% csrf_token %}
+    {% for choise in question.choise_set.all %}
+    <input type="radio" name="choise" id="choise{{ forloop.counter }}" value="{{ choise.id }}" />
+    <label for="choise{{ forloop.counter }}">{{choise.choise_text}}</label><br>
+    {% endfor %}
+
+
+    <input type="submit" value="vote">
+</form >
